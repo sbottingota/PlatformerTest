@@ -1,18 +1,15 @@
 import pygame
 
-import platform
 import player
 from constants import *
+import level
 
 pygame.init()
 screen = pygame.display.set_mode(WINDOW_SIZE)
 clock = pygame.time.Clock()
 running = True
 
-blocks_group = pygame.sprite.Group()
-blocks_group.add(platform.Block(100, 620, 500, 100, BLOCK_COLOR))
-blocks_group.add(platform.Block(600, 520, 200, 200, BLOCK_COLOR))
-blocks_group.add(platform.Block(800, 420, 300, 300, BLOCK_COLOR))
+blocks_group = pygame.sprite.Group(*level.parse_level("test_level.json"))
 
 player_group = pygame.sprite.GroupSingle(player.Player(WINDOW_SIZE[0] // 2, WINDOW_SIZE[1] // 2, PLAYER_SIZE, PLAYER_COLOR, 20, 1))
 

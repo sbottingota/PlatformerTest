@@ -20,13 +20,13 @@ class Player(pygame.sprite.Sprite):
 
     def update(self, blocks, jump=False, *args, **kwargs):
         if self._check_side_collision(blocks):
-            self.rect.x -= 3
+            self.rect.x -= BLOCK_MOVE_AMOUNT + 1
 
         if self._check_bottom_collision(blocks):
             if jump:
                 self.dy = -self.jump_strength
             else:
-                self.rect.y -= BLOCK_MOVE_AMOUNT + 1
+                self.rect.y -= 1
                 self.dy = 0
 
         else:
