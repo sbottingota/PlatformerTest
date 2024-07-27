@@ -1,14 +1,11 @@
 import json
 
-import pygame
-
 import platform
 import player
 from constants import *
 
 
 def parse_level(level_filepath):
-
     with open(level_filepath, "r") as fp:
         level = json.load(fp)
 

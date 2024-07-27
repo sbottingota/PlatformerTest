@@ -1,8 +1,16 @@
+from pygame import font
+font.init()
+
 WINDOW_SIZE = (1280, 720)
 BACKGROUND_COLOR = "cyan"
 
-BLOCK_MOVE_AMOUNT = 4
+BLOCK_MOVE_AMOUNT = 6
 DEFAULT_BLOCK_COLOR = "darkgray"
 
 PLAYER_SIZE = 50
 PLAYER_COLOR = "red"
+
+BUTTON_SIZE = (300, 150)
+BUTTON_LEFT_SPACING = (WINDOW_SIZE[0] - BUTTON_SIZE[0]) // 2
+BUTTON_FONT = font.SysFont("Serif", 25)
+BUTTON_COLOR = "gray"
