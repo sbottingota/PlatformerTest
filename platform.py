@@ -1,4 +1,5 @@
 import pygame
+
 from constants import *
 
 
@@ -15,5 +16,3 @@ class Block(pygame.sprite.Sprite):
 
     def update(self, *args, **kwargs):
         self.rect.x -= BLOCK_MOVE_AMOUNT
-
-
