@@ -1,7 +1,6 @@
 import json
 
 import platform
-from constants import *
 
 
 def parse_level(level_filepath):
@@ -10,7 +9,6 @@ def parse_level(level_filepath):
 
     return [_parse_block(block) for block in level]
 
+
 def _parse_block(block):
-    return platform.Block(block["x"], block["y"], block["width"], block["height"], block.get("color", DEFAULT_BLOCK_COLOR))
-
-
+    return platform.Block(*block["bounds"], **block.get("attributes", {}))

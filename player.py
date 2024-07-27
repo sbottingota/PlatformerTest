@@ -1,4 +1,5 @@
 import pygame
+
 from constants import *
 
 
@@ -19,6 +20,9 @@ class Player(pygame.sprite.Sprite):
         self.dy = 0
 
     def update(self, blocks, jump=False, *args, **kwargs):
+        if self._check_deadly_collision(blocks):
+            pygame.quit()  # death
+
         if self._check_side_collision(blocks):
             self.rect.x -= BLOCK_MOVE_AMOUNT + 1
 
@@ -36,14 +40,18 @@ class Player(pygame.sprite.Sprite):
 
     def _check_side_collision(self, blocks):
         for block in blocks:
-            if self.rect.colliderect(block.rect):
+            if block.solid and self.rect.colliderect(block.rect):
                 return self.rect.right >= block.rect.left > self.rect.centerx
 
         return False
 
     def _check_bottom_collision(self, blocks):
         for block in blocks:
-            if self.rect.colliderect(block.rect):
+            if block.solid and self.rect.colliderect(block.rect):
                 if block.rect.top <= self.rect.bottom:
                     return True
         return False
+
+    def _check_deadly_collision(self, blocks):
+        deadly_blocks = [block for block in blocks if block.deadly]
+        return any(self.rect.colliderect(block) for block in deadly_blocks)
