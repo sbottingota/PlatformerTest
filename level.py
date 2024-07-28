@@ -1,3 +1,5 @@
+import pygame
+
 import json
 
 import platform
@@ -21,20 +23,29 @@ class Level:
     def __init__(self, player, blocks):
         self.player = pygame.sprite.GroupSingle(player)
         self.blocks = pygame.sprite.Group(blocks)
-        self.is_running = True
+
+        self.get_state = lambda: player.state
 
     def update(self):
-        if self.is_running:
+        if self.get_state() == player.State.PLAYING:
             keys = pygame.key.get_pressed()
 
             self.blocks.update()
             self.player.update(self.blocks.sprites(), keys[pygame.K_SPACE])
 
-            if self.player.sprite.is_dead:
-                self.is_running = False
-
-    def draw(self, screen):
-        if self.is_running:
+    def draw(self, screen: pygame.Surface):
+        if self.get_state() == player.State.PLAYING:
             screen.fill(BACKGROUND_COLOR)
             self.blocks.draw(screen)
             self.player.draw(screen)
+
+        elif self.get_state() == player.State.FAILED:
+            screen.blit(LEVEL_FAILED_TEXT,
+                        ((screen.get_width() - LEVEL_FAILED_TEXT.get_width()) / 2,
+                         (screen.get_height() - LEVEL_FAILED_TEXT.get_height()) / 2))
+
+        elif self.get_state() == player.State.COMPLETED:
+            screen.blit(LEVEL_COMPLETED_TEXT,
+                        ((screen.get_width() - LEVEL_COMPLETED_TEXT.get_width()) / 2,
+                         (screen.get_height() - LEVEL_COMPLETED_TEXT.get_height()) / 2))
+

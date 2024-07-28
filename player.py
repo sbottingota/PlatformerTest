@@ -1,3 +1,5 @@
+import enum
+
 import pygame
 
 from constants import *
@@ -17,13 +19,16 @@ class Player(pygame.sprite.Sprite):
         self.jump_strength = jump_strength
         self.gravity = gravity
 
-        self.is_dead = False
+        self.state = State.PLAYING
 
         self.dy = 0
 
     def update(self, blocks, jump=False, *args, **kwargs):
         if self._check_deadly_collision(blocks) or self.rect.x < 0:
-            self.is_dead = True
+            self.state = State.FAILED
+
+        if self._check_level_end_collision(blocks):
+            self.state = State.COMPLETED
 
         if self._check_side_collision(blocks):
             self.rect.x -= BLOCK_MOVE_AMOUNT + 1
@@ -57,3 +62,13 @@ class Player(pygame.sprite.Sprite):
     def _check_deadly_collision(self, blocks):
         deadly_blocks = [block for block in blocks if block.deadly]
         return any(self.rect.colliderect(block) for block in deadly_blocks)
+
+    def _check_level_end_collision(self, blocks):
+        level_end_blocks = [block for block in blocks if block.level_end]
+        return any(self.rect.colliderect(block) for block in level_end_blocks)
+
+
+class State(enum.Enum):
+    PLAYING = 0
+    FAILED = 1
+    COMPLETED = 2

@@ -2,6 +2,7 @@ import pygame
 
 import level_selector
 from constants import *
+from player import State
 
 pygame.init()
 screen = pygame.display.set_mode(WINDOW_SIZE)
@@ -26,7 +27,7 @@ while is_running:
         selected_level.update()
         selected_level.draw(screen)
 
-        if not selected_level.is_running:
+        if selected_level.get_state() != State.PLAYING and pygame.key.get_pressed()[pygame.K_SPACE]:
             selected_level = None
 
     pygame.display.flip()

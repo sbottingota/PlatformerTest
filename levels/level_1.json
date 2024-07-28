@@ -24,5 +24,32 @@
   },
   {
     "bounds": [1500, 520, 400, 200]
+  },
+  {
+    "bounds": [1900, 420, 400, 300]
+  },
+  {
+    "bounds": [2300, 520, 300, 200],
+    "attributes": {
+      "solid": false,
+      "deadly": true,
+      "color": "orange"
+    }
+  },
+  {
+    "bounds": [2300, 620, 300, 100]
+  },
+  {
+    "bounds": [2600, 470, 300, 250]
+  },
+  {
+    "bounds": [2900, 570, 200, 150]
+  },
+  {
+    "bounds": [2900, 470, 200, 100],
+    "attributes": {
+      "level_end": true,
+      "color": "green"
+    }
   }
 ]
