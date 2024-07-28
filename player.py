@@ -1,12 +1,16 @@
+from collections.abc import *
+
 import enum
 
 import pygame
 
+import platform
 from constants import *
 
 
 class Player(pygame.sprite.Sprite):
-    def __init__(self, x, y, size, color, jump_strength, gravity, *groups):
+    def __init__(self, x: int, y: int, size: int, color: str, jump_strength: int, gravity: int,
+                 *groups: pygame.sprite.Group):
         super().__init__(*groups)
 
         self.image = pygame.Surface((size, size))
@@ -23,11 +27,11 @@ class Player(pygame.sprite.Sprite):
 
         self.dy = 0
 
-    def update(self, blocks, jump=False, *args, **kwargs):
-        if self._check_deadly_collision(blocks) or self.rect.x < 0:
+    def update(self, blocks: Collection[platform.Block], jump: bool = False, *args, **kwargs) -> None:
+        if self._check_collision_from_predicate(lambda block: block.deadly, blocks) or self.rect.x < 0:
             self.state = State.FAILED
 
-        if self._check_level_end_collision(blocks):
+        if self._check_collision_from_predicate(lambda block: block.level_endblocks):
             self.state = State.COMPLETED
 
         if self._check_side_collision(blocks):
@@ -45,27 +49,22 @@ class Player(pygame.sprite.Sprite):
 
         self.rect.y += self.dy
 
-    def _check_side_collision(self, blocks):
+    def _check_side_collision(self, blocks: Collection[platform.Block]) -> bool:
         for block in blocks:
             if block.solid and self.rect.colliderect(block.rect):
                 return self.rect.right >= block.rect.left > self.rect.centerx
 
         return False
 
-    def _check_bottom_collision(self, blocks):
+    def _check_bottom_collision(self, blocks: Collection[platform.Block]) -> bool:
         for block in blocks:
             if block.solid and self.rect.colliderect(block.rect):
                 if block.rect.top <= self.rect.bottom:
                     return True
         return False
 
-    def _check_deadly_collision(self, blocks):
-        deadly_blocks = [block for block in blocks if block.deadly]
-        return any(self.rect.colliderect(block) for block in deadly_blocks)
-
-    def _check_level_end_collision(self, blocks):
-        level_end_blocks = [block for block in blocks if block.level_end]
-        return any(self.rect.colliderect(block) for block in level_end_blocks)
+    def _check_collision_from_predicate(self, condition: Callable[platform.Block, bool], blocks: Collection[platform.Block]) -> bool:
+        return any(self.rect.colliderect(block) for block in blocks if condition(block))
 
 
 class State(enum.Enum):

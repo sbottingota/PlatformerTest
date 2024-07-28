@@ -4,7 +4,8 @@ from constants import *
 
 
 class Block(pygame.sprite.Sprite):
-    def __init__(self, x, y, width, height, color=DEFAULT_BLOCK_COLOR, solid=True, deadly=False, level_end=False):
+    def __init__(self, x: int, y: int, width: int, height: int,
+                 color: str = DEFAULT_BLOCK_COLOR, solid: bool = True, deadly: bool = False, level_end: bool = False):
         super().__init__()
 
         self.image = pygame.Surface((width, height))
@@ -18,5 +19,5 @@ class Block(pygame.sprite.Sprite):
         self.deadly = deadly
         self.level_end = level_end
 
-    def update(self, *args, **kwargs):
+    def update(self, *args, **kwargs) -> None:
         self.rect.x -= BLOCK_MOVE_AMOUNT
