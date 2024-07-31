@@ -16,11 +16,23 @@ class LevelSelector:
         self._bg_color = bg_color
         self._level_filepaths = level_filepaths
 
-        button_bottom_spacing = WINDOW_SIZE[1] // len(level_filepaths)
-        self._buttons = [
-            Button(BUTTON_LEFT_SPACING, i * button_bottom_spacing, BUTTON_SIZE[0], BUTTON_SIZE[1],
-                   f"Label {i}", BUTTON_FONT, BUTTON_COLOR)
-            for i in range(len(level_filepaths))]
+        button_bottom_spacing = WINDOW_SIZE[1] // (len(level_filepaths) // 2)
+        self._buttons = []
+
+        # left side
+        self._buttons.extend([
+            # 0.25 so that there is padding at the top too
+            Button(BUTTON_SIDE_SPACING, (i + 0.25) * button_bottom_spacing, BUTTON_SIZE[0], BUTTON_SIZE[1],
+                   f"Level {i + 1}", BUTTON_FONT, BUTTON_COLOR)
+            for i in range(len(level_filepaths) // 2)])
+
+        # right side
+        self._buttons.extend([
+            # 0.25 so that there is padding at the top too
+            Button(WINDOW_SIZE[0] - (BUTTON_SIDE_SPACING + BUTTON_SIZE[0]), (i + 0.25) * button_bottom_spacing, BUTTON_SIZE[0], BUTTON_SIZE[1],
+                   f"Level {(i + len(level_filepaths) // 2) + 1}", BUTTON_FONT, BUTTON_COLOR)
+            for i in range(len(level_filepaths) // 2)
+        ])
 
     def draw(self, surface: pygame.Surface) -> None:
         surface.fill(self._bg_color)

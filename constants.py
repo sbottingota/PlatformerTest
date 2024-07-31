@@ -9,8 +9,16 @@ BACKGROUND_COLOR = "cyan"
 
 DEFAULT_BLOCK_COLOR = "darkgray"
 
-PLAYER_SIZE = 50
-PLAYER_COLOR = "red"
+DEFAULT_PLAYER_ARGS = {
+    "x": WINDOW_SIZE[0] / 2,
+    "y": WINDOW_SIZE[1] / 2,
+    "size": 50,
+    "color": "red",
+    "move_speed": 8,
+    "jump_strength": 20,
+    "acceleration": 1,
+    "gravity": 1
+}
 
 PLAYER_DISLODGE_STRENGTH = 2
 
@@ -18,8 +26,8 @@ LEVEL_FONT = font.SysFont("Serif", 60)
 LEVEL_COMPLETED_TEXT = LEVEL_FONT.render("Level Completed!", True, "darkgreen")
 LEVEL_FAILED_TEXT = LEVEL_FONT.render("Level Failed.", True, "red")
 
-BUTTON_SIZE = (300, 150)
-BUTTON_LEFT_SPACING = (WINDOW_SIZE[0] - BUTTON_SIZE[0]) // 2
+BUTTON_SIZE = (200, 100)
+BUTTON_SIDE_SPACING = (WINDOW_SIZE[0] - BUTTON_SIZE[0]) // 4
 BUTTON_FONT = font.SysFont("Serif", 25)
 BUTTON_COLOR = "gray"
 

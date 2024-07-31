@@ -1,3 +1,5 @@
+import os
+
 import pygame
 
 import level_selector
@@ -10,7 +12,7 @@ def main():
     screen = pygame.display.set_mode(WINDOW_SIZE)
     clock = pygame.time.Clock()
 
-    selector = level_selector.LevelSelector(BACKGROUND_COLOR, ("levels/level_1.json", "levels/level_2.json"))
+    selector = level_selector.LevelSelector(BACKGROUND_COLOR, [f"./levels/{file}" for file in sorted(os.listdir("./levels/"))])
     selected_level = None
 
     is_running = True

@@ -59,7 +59,7 @@ def parse_level(level_filepath: str) -> Level:
     with open(level_filepath, "r") as fp:
         level = json.load(fp)
 
-    return Level(player.Player(WINDOW_SIZE[0] // 2, WINDOW_SIZE[1] // 2, PLAYER_SIZE, PLAYER_COLOR, 8, 20, 1, 1),
+    return Level(player.Player(**DEFAULT_PLAYER_ARGS),
                  [_parse_block(block) for block in level])
 
 
