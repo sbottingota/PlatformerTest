@@ -15,9 +15,11 @@ class Block(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
+        self.original_x = x
+
         self.solid = solid
         self.deadly = deadly
         self.level_end = level_end
 
-    def update(self, *args, **kwargs) -> None:
-        self.rect.x -= BLOCK_MOVE_AMOUNT
+    def update(self, offset: int, *args, **kwargs) -> None:
+        self.rect.x = self.original_x - offset

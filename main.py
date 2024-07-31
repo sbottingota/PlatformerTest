@@ -4,33 +4,38 @@ import level_selector
 from constants import *
 from player import State
 
-pygame.init()
-screen = pygame.display.set_mode(WINDOW_SIZE)
-clock = pygame.time.Clock()
-running = True
 
-selector = level_selector.LevelSelector(BACKGROUND_COLOR, ("levels/level_1.json", "levels/level_2.json"))
-selected_level = None
+def main():
+    pygame.init()
+    screen = pygame.display.set_mode(WINDOW_SIZE)
+    clock = pygame.time.Clock()
 
-is_running = True
+    selector = level_selector.LevelSelector(BACKGROUND_COLOR, ("levels/level_1.json", "levels/level_2.json"))
+    selected_level = None
 
-while is_running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            is_running = False
+    is_running = True
 
-    if selected_level is None:
-        selected_level = selector.get_selected_level()
-        selector.draw(screen)
+    while is_running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                is_running = False
 
-    else:
-        selected_level.update()
-        selected_level.draw(screen)
+        if selected_level is None:
+            selected_level = selector.get_selected_level()
+            selector.draw(screen)
 
-        if selected_level.get_state() != State.PLAYING and pygame.key.get_pressed()[pygame.K_SPACE]:
-            selected_level = None
+        else:
+            selected_level.update()
+            selected_level.draw(screen)
 
-    pygame.display.flip()
-    clock.tick(30)
+            if selected_level.state != State.PLAYING and pygame.key.get_pressed()[pygame.K_SPACE]:
+                selected_level = None
 
-pygame.quit()
+        pygame.display.flip()
+        clock.tick(30)
+
+    pygame.quit()
+
+
+if __name__ == '__main__':
+    main()

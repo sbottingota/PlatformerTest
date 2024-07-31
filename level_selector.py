@@ -7,7 +7,7 @@ from constants import *
 
 
 class LevelSelector:
-    def __init__(self, bg_color: str, level_filepaths: Collection[str] & Iterable[str]):
+    def __init__(self, bg_color: str, level_filepaths: Sequence[str]):
         self.bg_color = bg_color
         self.level_filepaths = level_filepaths
         self.current_level = None
