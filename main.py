@@ -28,11 +28,11 @@ def main():
             selected_level.update()
             selected_level.draw(screen)
 
-            if selected_level.state != State.PLAYING and pygame.key.get_pressed()[pygame.K_SPACE]:
+            if selected_level.state != State.PLAYING and pygame.key.get_pressed()[KEYMAP.skip]:
                 selected_level = None
 
         pygame.display.flip()
-        clock.tick(30)
+        clock.tick(60)
 
     pygame.quit()
 

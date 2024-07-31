@@ -8,31 +8,48 @@ from constants import *
 
 class LevelSelector:
     def __init__(self, bg_color: str, level_filepaths: Sequence[str]):
-        self.bg_color = bg_color
-        self.level_filepaths = level_filepaths
-        self.current_level = None
+        """
+        Level selector object.
+        :param bg_color: The background color of the level selector.
+        :param level_filepaths: The level filepaths to select from.
+        """
+        self._bg_color = bg_color
+        self._level_filepaths = level_filepaths
 
         button_bottom_spacing = WINDOW_SIZE[1] // len(level_filepaths)
-        self.buttons = [
+        self._buttons = [
             Button(BUTTON_LEFT_SPACING, i * button_bottom_spacing, BUTTON_SIZE[0], BUTTON_SIZE[1],
                    f"Label {i}", BUTTON_FONT, BUTTON_COLOR)
             for i in range(len(level_filepaths))]
 
     def draw(self, surface: pygame.Surface) -> None:
-        surface.fill(self.bg_color)
-        for button in self.buttons:
+        surface.fill(self._bg_color)
+        for button in self._buttons:
             button.draw(surface)
 
     def get_selected_level(self) -> level.Level | None:
-        for i, button in enumerate(self.buttons):
+        """
+        :return: The selected level, or None if there isn't one.
+        """
+        for i, button in enumerate(self._buttons):
             if button.is_pressed():
-                return level.parse_level(self.level_filepaths[i])
+                return level.parse_level(self._level_filepaths[i])
 
         return None
 
 
 class Button:
     def __init__(self, x: int, y: int, width: int, height: int, text: str, font: pygame.font.Font, color: str):
+        """
+        Button object.
+        :param x: The x coordinate of the button.
+        :param y: The y coordinate of the button.
+        :param width: The button's width.
+        :param height: The button's height.
+        :param text: The text on the button.
+        :param font: The font of the button's text.
+        :param color: The color of the button.
+        """
         self.image = pygame.Surface((width, height))
         self.image.fill(color)
 
