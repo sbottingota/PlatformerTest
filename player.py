@@ -69,6 +69,9 @@ class Player(pygame.sprite.Sprite):
         if self._check_collision_from_predicate(lambda block: block.level_end, blocks):
             self.state = State.COMPLETED
 
+        if self._check_collision_from_predicate(lambda block: block.sticky, blocks):
+            jump = False
+
         # handle side collisions
         side_collisions = self._check_side_collision(blocks)
         if side_collisions == Direction.RIGHT:

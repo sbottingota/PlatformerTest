@@ -64,4 +64,10 @@ def parse_level(level_filepath: str) -> Level:
 
 
 def _parse_block(block: dict) -> platform.Block:
-    return platform.Block(*block["bounds"], **block.get("attributes", {}))
+    match block.get("type"):
+        case "moving":
+            BlockType = platform.MovingBlock
+        case _:
+            BlockType = platform.Block
+
+    return BlockType(*block["bounds"], **block.get("attributes", {}))
