@@ -21,6 +21,7 @@ DEFAULT_PLAYER_ARGS = {
 }
 
 PLAYER_DISLODGE_STRENGTH = 2
+PLAYER_COLLISION_THRESHOLD = DEFAULT_PLAYER_ARGS["move_speed"] + 1
 
 LEVEL_FONT = font.SysFont("Serif", 60)
 LEVEL_COMPLETED_TEXT = LEVEL_FONT.render("Level Completed!", True, "darkgreen")

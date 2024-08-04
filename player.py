@@ -73,24 +73,22 @@ class Player(pygame.sprite.Sprite):
             jump = False
 
         # handle side collisions
-        side_collisions = self._check_side_collision(blocks)
+        side_collisions = self._check_side_collision(self._move_speed + 1, blocks)
         if side_collisions == Direction.RIGHT:
             self.x_offset -= PLAYER_DISLODGE_STRENGTH
-            self.rect.y += PLAYER_DISLODGE_STRENGTH
 
         elif side_collisions == Direction.LEFT:
             self.x_offset += PLAYER_DISLODGE_STRENGTH
-            self.rect.y += PLAYER_DISLODGE_STRENGTH
 
         else:
             self.x_offset += self._dx
 
         # handle bottom collisions and jumping
-        if self._check_bottom_collision(blocks):
-            if jump and side_collisions is None:
+        if self._check_bottom_collision(self._dy + 1, blocks):
+            if jump:
                 self._dy = -self._jump_strength
             else:
-                self.rect.y -= PLAYER_DISLODGE_STRENGTH
+                self.rect.y -= self._dy
                 self._dy = 0
 
         else:
@@ -112,31 +110,33 @@ class Player(pygame.sprite.Sprite):
         # update y pos
         self.rect.y += self._dy
 
-    def _check_side_collision(self, blocks: Collection[platform.Block]) -> Direction | None:
+    def _check_side_collision(self, collision_limit: int, blocks: Collection[platform.Block]) -> Direction | None:
         """
         Check for side collisions.
+        :param collision_limit: The limit to the difference between the positions of the corresponding edges.
         :param blocks: The blocks in the level.
         :return: A Direction corresponding with what side collided with the player, or None if no collisions.
         """
         for block in blocks:
             if block.solid and self.rect.colliderect(block.rect):
-                if self.rect.right >= block.rect.left > self.rect.centerx:
+                if self.rect.right >= block.rect.left > self.rect.right - collision_limit:
                     return Direction.RIGHT
 
-                elif self.rect.left <= block.rect.right < self.rect.centerx:
+                elif self.rect.left <= block.rect.right < self.rect.left + collision_limit:
                     return Direction.LEFT
 
         return None
 
-    def _check_bottom_collision(self, blocks: Collection[platform.Block]) -> bool:
+    def _check_bottom_collision(self, collision_limit: int, blocks: Collection[platform.Block]) -> bool:
         """
         Check for bottom collisions.
+        :param collision_limit: The limit to the difference between the positions of the corresponding edges.
         :param blocks: The blocks in the level.
         :return: Whether there is a bottom collision.
         """
         for block in blocks:
             if block.solid and self.rect.colliderect(block.rect):
-                if block.rect.top <= self.rect.bottom:
+                if block.rect.top <= self.rect.bottom < block.rect.top + collision_limit:
                     return True
         return False
 
