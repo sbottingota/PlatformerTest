@@ -1,8 +1,7 @@
+import json
 from collections.abc import *
 
 import pygame
-
-import json
 
 import platform
 import player
@@ -56,11 +55,20 @@ def parse_level(level_filepath: str) -> Level:
     :param level_filepath: The path of the json file representing the level.
     :return: A corresponding level.
     """
+    return Level(player.Player(**DEFAULT_PLAYER_ARGS), parse_blocks(level_filepath))
+
+
+def parse_blocks(level_filepath: str) -> Collection[platform.Block]:
+    """
+    Parse a json file representing a level.
+    :param level_filepath: The path of the json file representing the level.
+    :return: The corresponding blocks for the level.
+    """
+
     with open(level_filepath, "r") as fp:
         level = json.load(fp)
 
-    return Level(player.Player(**DEFAULT_PLAYER_ARGS),
-                 [_parse_block(block) for block in level])
+    return [_parse_block(block) for block in level]
 
 
 def _parse_block(block: dict) -> platform.Block:

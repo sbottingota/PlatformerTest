@@ -51,7 +51,7 @@ class LevelSelector:
 
 
 class Button:
-    def __init__(self, x: int, y: int, width: int, height: int, text: str, font: pygame.font.Font, color: str):
+    def __init__(self, x: float, y: float, width: float, height: float, text: str, font: pygame.font.Font, color: str):
         """
         Button object.
         :param x: The x coordinate of the button.

@@ -7,7 +7,7 @@ from constants import *
 from player import State
 
 
-def main():
+def main() -> None:
     pygame.init()
     screen = pygame.display.set_mode(WINDOW_SIZE)
     clock = pygame.time.Clock()
