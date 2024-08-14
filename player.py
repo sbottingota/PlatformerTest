@@ -84,11 +84,11 @@ class Player(pygame.sprite.Sprite):
             self.x_offset += self._dx
 
         # handle bottom collisions and jumping
-        if self._check_bottom_collision(self._dy + 1, blocks):
+        if self._check_bottom_collision(PLAYER_VERTICAL_COLLISION_THRESHOLD, blocks):
             if jump:
                 self._dy = -self._jump_strength
             else:
-                self.rect.y -= self._dy
+                self.rect.y -= PLAYER_DISLODGE_STRENGTH
                 self._dy = 0
 
         else:
