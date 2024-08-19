@@ -1,3 +1,5 @@
+from json import JSONDecodeError
+
 import pygame
 
 import level_selector
@@ -13,7 +15,6 @@ class LevelVisualizer:
         self._offset_x = 0
 
         self._move_speed = move_speed
-        self._auto_reload = auto_reload
 
         self._reload_button = level_selector.Button(width * 8 / 10, height / 10, width / 10, height / 10, "Reload",
                                                     BUTTON_FONT, BUTTON_COLOR)
@@ -60,7 +61,7 @@ def main() -> None:
 
         pygame.display.flip()
 
-        clock.tick(30)
+        clock.tick(60)
 
 
 if __name__ == '__main__':

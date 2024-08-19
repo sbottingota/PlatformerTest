@@ -1,5 +1,8 @@
 [
   {
+  "bounds": [0, 0, 100, 720]
+  },
+  {
     "bounds": [100, 620, 500, 100]
   },
   {
@@ -28,5 +31,85 @@
   },
   {
     "bounds": [1650, 470, 400, 250]
+  },
+  {
+    "bounds": [2050, 670, 800, 100]
+  },
+  {
+    "bounds": [2050, 520, 200, 150],
+    "attributes": {
+      "solid": false,
+      "deadly": true,
+      "color": "orange"
+    }
+  },
+  {
+    "bounds": [2250, 420, 100, 250]
+  },
+  {
+    "bounds": [2350, 470, 200, 200],
+    "attributes": {
+      "solid": false,
+      "deadly": true,
+      "color": "orange"
+    }
+  },
+  {
+    "bounds": [2550, 370, 100, 300]
+  },
+  {
+    "bounds": [2650, 420, 200, 250],
+    "attributes": {
+      "solid": false,
+      "deadly": true,
+      "color": "orange"
+    }
+  },
+  {
+    "bounds": [2850, 320, 300, 400]
+  },
+  {
+    "bounds": [3150, 620, 1000, 50],
+    "attributes": {
+      "solid": false,
+      "deadly": true,
+      "color": "orange"
+    }
+  },
+  {
+    "bounds": [3150, 670, 1000, 50]
+  },
+  {
+    "type": "moving",
+    "bounds": [3200, 370, 3550, 370, 100, 50],
+    "attributes": {
+      "move_speed": 1
+    }
+  },
+  {
+    "bounds": [3700, 0, 100, 320]
+  },
+  {
+    "type": "moving",
+    "bounds": [3550, 520, 4000, 520, 100, 50],
+    "attributes": {
+      "move_speed": 1.5
+    }
+  },
+  {
+    "bounds": [4150, 470, 300, 250]
+  },
+  {
+    "bounds": [4450, 570, 200, 150]
+  },
+  {
+    "bounds": [4450, 470, 200, 100],
+    "attributes": {
+      "level_end": true,
+      "color": "green"
+    }
+  },
+  {
+    "bounds": [4650, 0, 100, 720]
   }
 ]
